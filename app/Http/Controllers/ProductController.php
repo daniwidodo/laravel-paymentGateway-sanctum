@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
+
+// Models
 use App\Models\API\Product;
+
+//
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+
+// Resources
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -17,7 +24,15 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return 'Yo waddup mtherf*cker';
+        $product = Product::latest()
+            ->paginate(2)
+            ;
+            
+        return response()->json([
+            // ProgramResource::collection($data), 'Programs fetched.'
+            // ProductResource::collection($product), 'Data product berhasil diterima.'
+            $product, 'Data product berhasil diterima.'
+        ]);
     }
 
     /**
